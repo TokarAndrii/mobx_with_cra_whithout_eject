@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { observer } from "mobx-react";
+import "./App.css";
+import CounerView from "./CounterView";
+import { CounterStore } from "./CounerContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+@observer
+class App extends Component {
+  static contextType = CounterStore;
+
+  componentDidMount() {
+    console.log("app", this.context);
+    console.log(typeof this.context.decrementCount);
+  }
+  render() {
+    const { incrementCount, decrementCount } = this.context;
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <CounerView></CounerView>
+        <div>
+          <button onClick={() => incrementCount(2)}>+2</button>
+          <button onClick={() => decrementCount(2)}>-2</button>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
