@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { CounterStore } from "./CounerContext";
+import { AppStore } from "../../AppContext";
 import { observer } from "mobx-react";
 
 @observer
 class CounterView extends Component {
-  static contextType = CounterStore;
+  static contextType = AppStore;
 
   componentDidMount() {
     console.log(this.context);
@@ -12,7 +12,8 @@ class CounterView extends Component {
   }
 
   render() {
-    return <div>{this.context.count}</div>;
+    const { count } = this.context.counter;
+    return <div>{count}</div>;
   }
 }
 

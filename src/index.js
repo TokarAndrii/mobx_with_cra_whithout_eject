@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
-import CountStoreProvider from "./CounerContext";
+import AppStoreProvider from "./AppContext";
 
 ReactDOM.render(
-  <CountStoreProvider>
+  <AppStoreProvider>
     <App />
-  </CountStoreProvider>,
+  </AppStoreProvider>,
   document.getElementById("root")
 );
 
