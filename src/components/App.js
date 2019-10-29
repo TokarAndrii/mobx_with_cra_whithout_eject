@@ -5,6 +5,8 @@ import CounerView from "./counter/CounterView";
 import AddTodoForm from "./todos/formAddTodos/FormAddTodo";
 import EditTodoForm from "./todos//editTodoForm/EditTodoForm";
 import TodosList from "./todos/todosView/ToDosView";
+import RocketsList from "./spaceX/rockets/RocketsList";
+import RocketsSelect from "./spaceX/rocketsSelect/RocketsSelect";
 import { AppStore } from "../AppContext";
 
 const INITIAL_STATE = {
@@ -33,6 +35,7 @@ class App extends Component {
   render() {
     const { incrementCount, decrementCount } = this.context.counter;
     const { showAddTodoForm, showEditTodoForm } = this.state;
+    const { state } = this.context.spaceX;
     return (
       <div
         style={{
@@ -47,6 +50,7 @@ class App extends Component {
           <button onClick={() => incrementCount(2)}>+2</button>
           <button onClick={() => decrementCount(2)}>-2</button>
         </div>
+        <br></br>
         <button
           style={{ margin: "12px 0", padding: "8px 12x" }}
           type="button"
@@ -61,6 +65,25 @@ class App extends Component {
           ></EditTodoForm>
         )}
         <TodosList onShowEditForm={this.handleToggleEditTodosForm}></TodosList>
+        <RocketsSelect></RocketsSelect>
+        <RocketsList></RocketsList>
+        {state === "pending" && (
+          <div
+            style={{
+              position: "absolute",
+              top: "30%",
+              left: "30%",
+              width: "600px",
+              height: "100px",
+              backgroundColor: "grey",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            ...LOADING...
+          </div>
+        )}
       </div>
     );
   }
