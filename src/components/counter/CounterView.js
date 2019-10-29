@@ -6,11 +6,6 @@ import { observer } from "mobx-react";
 class CounterView extends Component {
   static contextType = AppStore;
 
-  componentDidMount() {
-    console.log(this.context);
-    console.log(this.context.count);
-  }
-
   render() {
     const { count } = this.context.counter;
     return <div>{count}</div>;

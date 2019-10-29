@@ -1,4 +1,4 @@
-import { observable, action, toJS } from "mobx";
+import { observable, action, toJS, computed } from "mobx";
 
 class TodosStore {
   @observable todos = [
@@ -14,6 +14,14 @@ class TodosStore {
     }
   ];
 
+  @observable
+  currentTodosId = null;
+
+  @action
+  setCurrentTodosId(id) {
+    this.currentTodosId = id;
+  }
+
   @action
   addTodo(todo) {
     this.todos = [...this.todos, todo];
@@ -28,6 +36,23 @@ class TodosStore {
         ? { ...todo, isCompleted: !todo.isCompleted }
         : todo;
     });
+  }
+
+  @action.bound
+  deleteTodo(id) {
+    this.todos = this.todos.filter(todo => todo.id !== id);
+  }
+
+  @action.bound
+  findTodoById(id) {
+    return toJS(this.todos.find(todo => todo.id === id));
+  }
+
+  @action.bound
+  editTodo(todo) {
+    return (this.todos = this.todos.map(currentTodo =>
+      currentTodo.id === todo.id ? { ...todo } : currentTodo
+    ));
   }
 }
 
